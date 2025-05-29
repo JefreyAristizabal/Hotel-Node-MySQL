@@ -1,0 +1,10 @@
+<nav class="sidebar bg-dark text-white vh-100 p-3" style="width: 250px;">
+    <h4 class="text-center">Admin Panel</h4>
+    <p class="text-center">Bienvenido, <%= usuario || 'Usuario' %></p>
+    <ul class="nav flex-column">
+        <li class="nav-item"><a href="?seccion=habitaciones" class="sidebar nav-link text-white">Habitaciones</a></li>
+        <li class="nav-item"><a href="?seccion=huespedes" class="sidebar nav-link text-white">Huéspedes</a></li>
+        <li class="nav-item"><a href="?seccion=empleados" class="sidebar nav-link text-white">Empleados</a></li>
+        <li class="nav-item"><a href="/auth/logout" class="nav-link text-danger">Cerrar sesión</a></li>
+    </ul>
+</nav>

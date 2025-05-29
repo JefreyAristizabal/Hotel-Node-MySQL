@@ -1,0 +1,75 @@
+<div class="container mt-4">
+    <h2>Registrar Habitación</h2>
+    <form action="/admin/habitaciones/guardar" method="POST" enctype="multipart/form-data">
+        <!-- Selección de Nombre de la Habitación -->
+        <div class="mb-3">
+            <label for="nombre_habitacion" class="form-label">Nombre de la Habitación</label>
+            <select class="form-select" id="nombre_habitacion" name="nombre_habitacion" required>
+                <option value="Estándar Individual">Estándar Individual</option>
+                <option value="Estándar Doble">Estándar Doble</option>
+                <option value="Habitación Deluxe">Habitación Deluxe</option>
+                <option value="Suite Junior">Suite Junior</option>
+                <option value="Suite Presidencial">Suite Presidencial</option>
+                <option value="Bungalow">Bungalow</option>
+                <option value="Penthouse">Penthouse</option>
+                <option value="Villa Privada">Villa Privada</option>
+            </select>
+        </div>
+
+        <!-- Capacidad de la Habitación -->
+        <div class="mb-3">
+            <label for="capacidad" class="form-label">Capacidad</label>
+            <input type="number" class="form-control" id="capacidad" name="capacidad" min="1" max="10" required>
+        </div>
+
+        <!-- Subir Imagen de la Habitación -->
+        <div class="mb-3">
+            <label for="imagen" class="form-label">Imagen de la Habitación</label>
+            <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*" required>
+            <br>
+            <img id="vista-previa" src="#" alt="Vista previa de la imagen" class="img-fluid mt-2 d-none" width="200">
+        </div>
+
+        <!-- Botón de Envío -->
+        <button type="submit" class="btn btn-primary mb-2">Guardar</button>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+           <thead>
+               <tr>
+                   <th>Nombre</th>
+                   <th>Capacidad</th>
+                   <th>Imagen</th>
+                   <th>Acciones</th>
+               </tr>
+           </thead>
+           <tbody>
+               <% habitaciones.forEach(habitacion => { %>
+                   <tr>
+                       <td><%= habitacion.NOMBRE %></td>
+                       <td><%= habitacion.CAPACIDAD %></td>
+                       <td><img src="<%= habitacion.IMAGEN %>" alt="Habitacion" width="100"></td>
+                       <td class="text-center">
+                           <a href="#" class="btn btn-success" onclick="cargarContenido('editar_habitacion.ejs?id=<%= habitacion.idHABITACIONES %>')">Editar</a>
+                           <button class="btn btn-danger">Eliminar</button>
+                       </td>
+                   </tr>
+               <% }) %>
+           </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Script para vista previa de imagen -->
+<script>
+document.getElementById('imagen').addEventListener('change', function(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+        const preview = document.getElementById('vista-previa');
+        preview.src = reader.result;
+        preview.classList.remove('d-none');
+    }
+    reader.readAsDataURL(event.target.files[0]);
+});
+</script>
